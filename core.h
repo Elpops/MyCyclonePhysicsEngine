@@ -2,12 +2,11 @@
 #include "precision.h"
 
 
-
 namespace cyclone {
 	
 	
 	//Encapsule un vecteur en trois dimensions. 
-	//Quatre membres sont alloués pour assurer l'alignement en mémoire
+	//Quatre membres sont allouÃ©s pour assurer l'alignement en mÃ©moire
 
 	class Vector3
 	{
@@ -19,7 +18,7 @@ namespace cyclone {
 	private :
 		real pad;
 	public :
-		//Constructeur par défaut
+		//Constructeur par dÃ©faut
 		Vector3(): x(0), y(0), z(0) {}
 		//Constructeur explicite
 		Vector3(const real x, const real y, const real z)
@@ -36,7 +35,7 @@ namespace cyclone {
 
 		real magnitude() const
 		{
-			return real_sqrt(x*x + y*y + z*z);
+			return sqrt(x*x + y*y + z*z);
 		}
 
 		real squareMagnitude() const
@@ -124,5 +123,33 @@ namespace cyclone {
 		{
 			return x*v.x + y*v.y + z*v.z;
 		}
+		
+		Vector3 vectorProduct(const Vector3 &v) const
+		{
+			return Vector3(y*v.z-z*v.y,z*v.x-x*v.z,x*v.y-y*v.x);
+		}
+		
+		void operator %=(const Vector3 &v)
+		{
+			*this = vectorProduct(v);
+		}
+		
+		Vector3 operator%(const Vector3 &v) const
+		{
+			return Vector3(y*v.z-z*v.y,z*v.x-x*v.z,x*v.y-y*v.x);
+		}
+		
+		//SÃ»rement pas dans cette classe, Ã  voir plus tard 
+		
+		void makeOrthonormalBasis(Vector3 *a, Vector3 *b, Vector3 *c)
+		{
+		a->normalize();
+		(*c) = (*a) % (*b);
+		if (c->squareMagnitude() == 0.0) return; // Or generate an error.
+		c->normalize();
+		(*b) = (*c) % (*a);
+		}
+		
+		
 	};
 }
