@@ -35,7 +35,7 @@ namespace cyclone {
 
 		real magnitude() const
 		{
-			return real_sqrt(x*x + y*y + z*z);
+			return sqrt(x*x + y*y + z*z);
 		}
 
 		real squareMagnitude() const
@@ -129,7 +129,7 @@ namespace cyclone {
 			return Vector3(y*v.z-z*v.y,z*v.x-x*v.z,x*v.y-y*v.x);
 		}
 		
-		void operator %=(cosnt Vector3 &v)
+		void operator %=(const Vector3 &v)
 		{
 			*this = vectorProduct(v);
 		}
@@ -145,7 +145,7 @@ namespace cyclone {
 		{
 		a->normalize();
 		(*c) = (*a) % (*b);
-		if (c.squareMagnitude() == 0.0) return; // Or generate an error.
+		if (c->squareMagnitude() == 0.0) return; // Or generate an error.
 		c->normalize();
 		(*b) = (*c) % (*a);
 		}
