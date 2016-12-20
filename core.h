@@ -24,6 +24,13 @@ namespace cyclone {
 		Vector3(const real x, const real y, const real z)
 			: x(x), y(y), z(z) {}
 
+		//Annule le vecteur
+
+		void clear() {
+			x = 0;
+			y = 0;
+			z = 0;
+		}
 		//Inverse le vecteur
 
 		void invert()
@@ -94,7 +101,7 @@ namespace cyclone {
 			return Vector3(x - v.x, y - v.y, z - v.z);
 		}
 
-		void addScaleVector(const Vector3& v, real scale)
+		void addScaledVector(const Vector3& v, real scale)
 		{
 			x += v.x*scale;
 			y += v.y*scale;
